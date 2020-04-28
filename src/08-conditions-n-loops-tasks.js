@@ -121,8 +121,16 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  if ((rect2.top >= rect1.top && rect2.top <= rect1.top + rect1.height)
+  && (rect2.left >= rect1.left && rect2.left <= rect1.left + rect1.width)) {
+    return true;
+  }
+  if ((rect1.top >= rect2.top && rect1.top <= rect2.top + rect2.height)
+  && (rect1.left >= rect2.left && rect1.left <= rect2.left + rect2.width)) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -168,8 +176,21 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const count = str.split('').reduce((acc, el) => {
+    if (Object.keys(acc).includes(el)) {
+      acc[el] += 1;
+    } else {
+      acc[el] = 1;
+    }
+    return acc;
+  }, {});
+  const keys = Object.keys(count);
+  for (let i = 0; i < keys.length; i += 1) {
+    const el = keys[i];
+    if (count[el] === 1) return el;
+  }
+  return null;
 }
 
 
@@ -343,8 +364,14 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  let result = '';
+  let value = num;
+  while (value > 0) {
+    result += value % n;
+    value = Math.floor(value / n);
+  }
+  return result.split('').reverse().join('');
 }
 
 
